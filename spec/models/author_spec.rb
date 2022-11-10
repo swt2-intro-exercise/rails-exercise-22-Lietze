@@ -1,12 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Author, type: :model do
-  it "Author.name shoude be the fist name and the last name" do
-    expect(author.name).to eq(author.first_name + author.last_name)
+  before :each do
+    @first_name = "Alan"
+    @last_name = "Turing"
+    @full_name = "Alan Turing"
+    @homepage = "http://wikipedia.org/Alan_Turing"
   end
-  it "Author atributes should exist" do
-    expect(author.first_name).to eq(author.first_name)
-    expect(author.last_name).to eq(author.last_name)
-    expect(author.homepage).to eq(author.homepage)
+
+  it "can be created with first name, last name and homepage" do
+    author = Author.new(first_name: @first_name, last_name: @last_name, homepage: @homepage)
+
+    expect(author.first_name).to eq(@first_name)
+    expect(author.last_name).to eq(@last_name)
+    expect(author.homepage).to eq(@homepage)
+  end
+
+  it "composes full name from first name and last name" do
+    author = Author.new(first_name: @first_name, last_name: @last_name, homepage: @homepage)
+
+    expect(author.name).to eq(@full_name)
   end
 end
